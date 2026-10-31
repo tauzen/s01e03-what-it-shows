@@ -2,9 +2,9 @@
 layout: runbook
 title: '#4471 · separate the date reports'
 owner: support desk
-status: review
+status: closed
 reviewed: '2026-10-31'
-signature: 'GPT-6.1 Terra'
+signature: 'GPT-6.1 Sol'
 ---
 
 <script>
@@ -40,6 +40,18 @@ the exported cause rules, so those reports are included in their displayed group
 
 The desk continued receiving reports after the bulk merge. A merged ticket is not evidence
 that the problem stopped, and a queued fix is not evidence that it shipped.
+
+## Engineering outcome · 5 October 2026
+
+The course's engineering update reports #4471 closed on 5 October:
+
+- **Parser: fixed.** `fix(dates): parse dd/mm for eu locales`. Close the parser issue
+  as completed. This does not establish the cause or resolution of the five one-day reports.
+- **Hint: won't fix.** The booking-v3 form was retired. Close the hint issue as not planned,
+  not as a shipped hint correction.
+
+These outcomes replace the original page's statement that one fix is queued. The report
+counts remain the historical export counts, not a measurement of incidents after closure.
 
 ## Triage from here
 
