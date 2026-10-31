@@ -1,0 +1,54 @@
+---
+layout: runbook
+title: '#4471 · separate the date reports'
+owner: support desk
+status: review
+reviewed: '2026-10-31'
+signature: 'GPT-6.1 Terra'
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+The [original incident page](/kb/incidents/4471) says there is one issue and one queued
+fix. The report export and the cause logic show two different problems. Keep a separate
+engineering ticket for each, and do not treat the intake tag as proof of the cause.
+
+- [Shared parser reads day-first dates month first](https://github.com/tauzen/s01e03-what-it-shows/issues/1)
+- [Booking-v3 displays the wrong date hint](https://github.com/tauzen/s01e03-what-it-shows/issues/2)
+
+## What the desk merged
+
+<CauseTable ticket={4471} />
+
+The table deduplicates the export by report ID and uses the tenant's locale, booking form,
+and report channel. In day-first locales the shared parser reads dates month first. Separately,
+booking-v3 displays a month-first hint even though that form reads dates in the tenant's
+day-first order. Fixing one does not fix the other.
+
+The table also marks reports that desk notes describe as one-day moves. A month/day swap
+does not by itself explain those descriptions; investigate the original reports before
+assuming the same cause or assigning them to a separate bug. The table's counts still follow
+the exported cause rules, so those reports are included in their displayed groups.
+
+## When reports arrived and were merged
+
+<QueueTimeline ticket={4471} />
+
+The desk continued receiving reports after the bulk merge. A merged ticket is not evidence
+that the problem stopped, and a queued fix is not evidence that it shipped.
+
+## Triage from here
+
+- Group by the actual cause, not the subject or browser intake tag. The accepted
+  [subject-only decision](/kb/decisions/0001-dedupe-by-subject) can merge different bugs
+  and split reports of the same bug; do not silently edit that decision record.
+- Check the tenant's locale and form, the channel, and the reported dates. Escalate
+  ambiguous one-day changes rather than inferring a timezone cause without evidence.
+- Keep the two engineering issues and their counts alongside the source report IDs. Update
+  counts when the desk receives more reports; this page's components reflect their input data.
+
+<RenderStamp {signature} />
